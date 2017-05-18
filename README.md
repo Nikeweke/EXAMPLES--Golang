@@ -1,5 +1,8 @@
 # GoLang_projects
 
+### [Пакеты для Golang](https://godoc.org/)
+
+
 ## Содержание
 
 * [Что нужно для создания первого файла]()
@@ -25,6 +28,10 @@ SET GOPATH=%CD%               rem Указываем путь где лежат 
 SET PATH=%GOROOT%\BIN;%PATH%; rem Указываем путь к Bin папке
 
 go run app/main.go   rem запустит но не выплюнет закомпиленный файл
+rem go build -o bin/app.exe app/main.go app/fns.go    rem Скомпилирует и положит в bin/
+
+rem Если 2 файла
+rem go run app\main.go app\fns.go
 ```
 
 **3.** Создаем в папке проекта: 3 директории
@@ -49,6 +56,21 @@ start run.bat
 
 
 ### Установка пакетов
+Установка пакетов делаеться через файл **run.bat**:
+```batch
+@ECHO OFF
+SETLOCAL
+chcp 866>nul
+
+
+rem Установка переменных среды для компиляции
+SET GOROOT=C:\GO
+SET GOPATH=%CD%
+SET PATH=%GOROOT%\BIN;%PATH%;
+
+go get github.com/therecipe/qt
+pause
+```
 
 
   
