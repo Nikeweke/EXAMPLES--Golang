@@ -64,7 +64,7 @@ start run.bat
 * bin
 * **src**
    + app
-        - fns/fns.go 
+        - fns / fns.go (пространство имен - **package fns**, иначе будет ошибка, все связано по папкам) 
 
 
 
@@ -90,12 +90,10 @@ rem go run app\main.go app\fns.go
 ```go
 package main
 
-
 import (
     "app/fns"   // <!-- мой пакет лежит здесь : корень / src/app/fns/fns.go (где )
     "fmt"
 )
-
 
 func main(){
    fmt.Println("Hello humano")
@@ -105,7 +103,6 @@ func main(){
    
    fmt.Scanln()
 }
-
 ```
 
 
