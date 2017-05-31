@@ -6,6 +6,7 @@
 ## Содержание
 
 * [Что нужно для создания первого файла](#Что-нужно-для-создания-первого-файла)
+* [Подключение файлов](#Подключение-файлов)
 * [Установка пакетов](#Установка-пакетов)
 * [Сборка под Win и Linux](#Сборка-под-win-и-linux)
 
@@ -53,6 +54,61 @@ func main(){
 ```
 start run.bat
 ```
+
+
+### Подключение файлов
+Структура такая:
+* run.bat
+* main.go
+* pkg
+* bin
+* **src**
+   + app
+        - fns/fns.go 
+
+
+
+
+###### run.bat
+```batch
+@ECHO OFF
+SETLOCAL
+chcp 866>nul
+
+rem Установка переменных среды для компиляции
+SET GOROOT=C:\GO             
+SET GOPATH=%CD%               
+SET PATH=%GOROOT%\BIN;%PATH%; 
+
+go run main.go   rem запустит но не выплюнет закомпиленный файл
+
+rem Если 2 файла
+rem go run app\main.go app\fns.go
+```
+
+###### main.go
+```go
+package main
+
+
+import (
+    "app/fns"   // <!-- мой пакет лежит здесь : корень / src/app/fns/fns.go (где )
+    "fmt"
+)
+
+
+func main(){
+   fmt.Println("Hello humano")
+   
+   fns.Braker()  // <! -- это функция из моего пакета, ф-ция должна быть с Большой буквы, 
+                 //       иначе даже после импорта не сможешь её заюзать
+   
+   fmt.Scanln()
+}
+
+```
+
+
 
 
 ### Установка пакетов
