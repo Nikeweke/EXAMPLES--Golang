@@ -4,13 +4,8 @@
 
 package main
 
-// import "proj"
-import (
-  "fmt"
-// "log"
-"os"
- // "path/filepath"
-    )
+import "fmt"
+import  "os"
 
 var ctrls   = "/app/Http/Controllers"
 var models  = "/app/Models"
@@ -19,10 +14,12 @@ var css     = "/public/css"
 
 
 func main() {
-  go deleteFile(ctrls)
-  go deleteFile(models)
-  go deleteFile(js)
-  go deleteFile(css)
+
+   deleteFile(ctrls)
+   deleteFile(models)
+   deleteFile(js)
+   deleteFile(css)
+  // fmt.Scanln()
 }
 
 
@@ -33,8 +30,8 @@ func deleteFile(file_path string) {
     checkErr(err)
 
   	// delete file
-  	var errr = os.Remove(curr_dir + file_path)
-    checkErr(errr)
+  	os.RemoveAll(curr_dir + file_path)
+    // checkErr(errr)
 }
 
 
