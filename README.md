@@ -149,8 +149,8 @@ pause
 SETLOCAL
 chcp 866>nul
 
-SET GOPATH=%CD%
 SET GOROOT=C:\GO
+SET GOPATH=%CD%
 SET PATH=%GOROOT%\BIN;%PATH%;
 
 go build main.go
@@ -163,8 +163,8 @@ pause
 SETLOCAL
 chcp 866>nul
 
-SET GOPATH=%CD%
 SET GOROOT=C:\GO
+SET GOPATH=%CD%
 SET PATH=%GOROOT%\BIN;%PATH%;
 
 SET GOOS=linux
