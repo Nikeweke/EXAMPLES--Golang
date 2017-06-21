@@ -29,9 +29,12 @@ SETLOCAL
 chcp 866>nul
 
 rem Установка переменных среды для компиляции
-SET GOROOT=C:\GO              rem Указываем путь где лежыт golang (куда был установлен)
-SET GOPATH=%CD%               rem Указываем путь где лежат наши коды для компиляции
-SET PATH=%GOROOT%\BIN;%PATH%; rem Указываем путь к Bin папке
+rem Указываем путь где лежыт golang (куда был установлен)
+SET GOROOT=C:\GO
+rem Указываем путь где лежат наши коды для компиляции
+SET GOPATH=%CD%
+rem Указываем путь к Bin папке
+SET PATH=%GOROOT%\BIN;%PATH%;
 
 go run app/main.go   rem запустит но не выплюнет закомпиленный файл
 rem go build -o bin/app.exe app/main.go app/fns.go    rem Скомпилирует и положит в bin/
