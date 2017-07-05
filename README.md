@@ -12,7 +12,48 @@
 
 ---
 
+### Сборка под Win и Linux
+###### Win_build.bat
+```batch
+@ECHO OFF
+SETLOCAL
+chcp 866>nul
+
+REM по стандарту должна уже стоять
+REM SET GOROOT=C:\GO
+SET GOPATH=%CD%
+
+REM путь к бинарникам проекта
+SET PATH=%GOPATH%\BIN;%PATH%;
+REM SET PATH=%GOROOT%\BIN;%PATH%;
+
+go run main.go
+pause
+```
+
+###### Linux_build.bat
+```batch
+@ECHO OFF
+SETLOCAL
+chcp 866>nul
+
+SET GOROOT=C:\GO
+SET GOPATH=%CD%
+SET PATH=%GOROOT%\BIN;%PATH%;
+
+SET GOOS=linux
+SET GOARCH=amd64
+SET CGO_ENABLED=0
+
+go build main.go
+pause
+
+
+```
+
+
 ### Основные комманды
+* **go env** - можно посмотреть установлены ли переменные окружения, GOPATH GOROOT
 * **go run main.go** - запускает, но не компилирует
 * **go build main.go** - компилит проект в корень
 * **go build -o bin/app.exe main.go** - компилит проект в ./bin
@@ -29,7 +70,7 @@ SETLOCAL
 chcp 866>nul
 
 rem Установка переменных среды для компиляции
-rem Указываем путь где лежыт golang (куда был установлен)
+rem Указываем путь где лежыт golang (куда был установлен) 
 SET GOROOT=C:\GO
 rem Указываем путь где лежат наши коды для компиляции
 SET GOPATH=%CD%
@@ -145,40 +186,6 @@ pause
 
 
   
-### Сборка под Win и Linux
-###### Win_build.bat
-```batch
-@ECHO OFF
-SETLOCAL
-chcp 866>nul
-
-SET GOROOT=C:\GO
-SET GOPATH=%CD%
-SET PATH=%GOROOT%\BIN;%PATH%;
-
-go build main.go
-pause
-```
-
-###### Linux_build.bat
-```batch
-@ECHO OFF
-SETLOCAL
-chcp 866>nul
-
-SET GOROOT=C:\GO
-SET GOPATH=%CD%
-SET PATH=%GOROOT%\BIN;%PATH%;
-
-SET GOOS=linux
-SET GOARCH=amd64
-SET CGO_ENABLED=0
-
-go build main.go
-pause
-
-
-```
 
 
   
