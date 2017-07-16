@@ -9,6 +9,7 @@
 * [Подключение файлов](#Подключение-файлов)
 * [Установка пакетов](#Установка-пакетов)
 * [Сборка под Win и Linux](#Сборка-под-win-и-linux)
+* [Проблемы и их решение](#Проблемы-и-их-решение)
 
 ---
 
@@ -186,7 +187,38 @@ pause
 
 
   
+### Проблемы и их решение
 
+1. Есть массив типа - `map[User]string` , где `User` структура в которой одне поле **Id string**. Надо достать значение которое справу (value). При обычном ренже выдает значение только ключа(key). Решение:
+```golang
+
+type User struct {
+	Id       string  
+}
+
+func main(){ 
+
+var clients = make(map[User]string)
+
+...
+
+// так выведет значение ключа(key)
+for client := range clients {
+   fmt.Println(client)
+   fmt.Println(client.Id)
+}
+
+// так выведет значение справа(value)
+for _, client := range clients {
+   fmt.Println(client)
+}
+
+// так выведет значение справа(value)
+for i, client := range clients {
+   fmt.Println(i.Id)
+   fmt.Println(client)
+}
+```
 
   
   
