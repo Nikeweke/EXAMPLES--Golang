@@ -1,3 +1,9 @@
+/*
+* Maker.go
+*
+* Создает .gitignore , readme.md, pusher.bat, run.bat, main.go
+*/
+
 package main
 
 import (
