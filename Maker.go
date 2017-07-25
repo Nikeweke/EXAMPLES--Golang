@@ -1,9 +1,3 @@
-/*
-* Maker.go
-*
-* Создает .gitignore , readme.md, pusher.bat, run.bat, main.go
-*/
-
 package main
 
 import (
@@ -46,15 +40,13 @@ REM SET CGO_ENABLED=0
 
 REM go get github.com/gorilla/websocket
 REM go get github.com/robfig/cron
-REM go get -u github.com/jinzhu/gorm
+REM go get github.com/drgomesp/gorm  
 REM go get github.com/go-sql-driver/mysql
 
 go run main.go
 REM go build main.go
 pause
 `
-
-
 // ----------------------> pusher.bat
            var pusher = `
 git init
