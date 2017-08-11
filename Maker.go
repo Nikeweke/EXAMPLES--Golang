@@ -27,19 +27,27 @@ import (
 
            switch choice {
              case 1:
+                 os.Mkdir("files" , 1)
+                 os.Chdir("files")
                  MakeFile(".gitignore",   "pusher.bat")
                  MakeFile("pusher.bat",    pusher)
                  fmt.Println("[ .gitignore + pusher.bat ] have been created successfuly ^^)")
              case 2:
+                 os.Mkdir("files" , 1)
+                 os.Chdir("files")
                  MakeFile(".gitignore",   "pusher.bat")
                  MakeFile("pusher.bat",    pusher)
                  MakeFile("readme.md",     "## Some Title")
                  fmt.Println("[ .gitignore + pusher.bat + readme.md ] have been created successfuly ^^)")
              case 3:
+                 os.Mkdir("files" , 1)
+                 os.Chdir("files")
                  MakeFile("run.bat",       run)
                  MakeFile("main.go",       maingo)
                  fmt.Println("[ main.go + run.bat ] have been created successfuly ^^)")
              case 4:
+                 os.Mkdir("files", 1)
+                 os.Chdir("files")
                  MakeFile(".gitignore",   "pusher.bat")
                  MakeFile("readme.md",     "## Some Title")
                  MakeFile("pusher.bat",    pusher)
@@ -54,11 +62,8 @@ import (
                  fmt.Println()
                  main()
            }
-
-
-
-
         }
+
 
 
 
