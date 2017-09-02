@@ -9,7 +9,7 @@
 * Hot reloader - `go get github.com/pilu/fresh`
 
 ###### run.bat
-```
+```batch
 @ECHO OFF
 
 REM по стандарту должна уже стоять
