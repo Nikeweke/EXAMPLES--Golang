@@ -302,43 +302,8 @@ func (v Vertex) Say() {
 func main() {
 	v := Vertex{name: "Krake"}  
 	v.Say()
+	
+	gg := Vertex{name: "Vasiliy"}
+	gg.Say() 
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
