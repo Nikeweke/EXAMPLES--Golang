@@ -176,7 +176,7 @@ fmt.Println(sum)
 
 
 ### Range
-```
+```go
 type User struct {
 	Id       string  
 }
@@ -271,6 +271,7 @@ fmt.Println("done")
 ```
 
 ### Structs (alike Class)
+###### Struct как объект
 ```go
 type Vertex struct {
 	X int
@@ -286,3 +287,58 @@ func main() {
 	fmt.Println(v.X)
 }
 ```
+
+###### Struct как класс
+```go
+type Vertex struct {
+	name string
+}
+
+func (v Vertex) Say() {
+	fmt.Println("It say Vertex method")
+	fmt.Println("name =" + v.name) 
+}
+
+func main() {
+	v := Vertex{name: "Krake"}  
+	v.Say()
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
