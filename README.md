@@ -27,6 +27,8 @@ REM go get github.com/pilu/fresh
 REM fresh 
 
 go run index.go
+
+REM go build index.go
 REM go build -o build/index index.go
 REM go build -o build/index.exe index.go
 pause
