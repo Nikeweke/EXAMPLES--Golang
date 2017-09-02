@@ -14,11 +14,6 @@
 
 ### Variables
 
-###### ВЫВОД типа переменной
-```go
-fmt.Printf("i is of type %T\n", i) // out-> i is of type int
-```
-
 ```go
 var x int
 var s string
@@ -34,8 +29,10 @@ var x = 5
 
 var c, python, java = true, false, "no!"
 var i, j int        = 1, 2
+```
 
-//  ВЫВОД типа переменной
+###### ВЫВОД типа переменной
+```go
 fmt.Printf("i is of type %T\n", i) // out-> i is of type int
 ```
 
@@ -82,7 +79,7 @@ func main() {
 ```
 
 ### For
-##### FOR обычный
+###### FOR обычный
 ```go
 
  sum := 0
@@ -92,7 +89,7 @@ for i := 0; i < 10; i++ {
 fmt.Println(sum)
 ```
 
-##### FOR без итератора
+###### FOR без итератора
 ```go
 sum := 1
 for ; sum < 1000; {
@@ -101,7 +98,7 @@ for ; sum < 1000; {
 fmt.Println(sum)
 ```
 
-##### FOR без конца и края
+###### FOR без конца и края
 ```go
 for{
   fmt.Println("Forever hello world")
@@ -119,7 +116,7 @@ fmt.Println(sum)
 ```
 
 ### If, switch
-##### If 
+###### If 
 ```go
 func pow(x, n, lim float64) float64 {
 
@@ -138,7 +135,7 @@ func main() {
 }
 ```
 
-##### Switch обычный 
+###### Switch обычный 
 ```go
 fmt.Print("Go runs on ")
 	switch os := runtime.GOOS; os {
@@ -153,7 +150,7 @@ fmt.Print("Go runs on ")
 	}
 ```
 
-##### Switch без условия. 
+###### Switch без условия. 
 Если условия нет, значит идет как "true". Это можно использовать вместо длинных if - elseif - else
 ```go
 t := time.Now()
@@ -168,13 +165,13 @@ t := time.Now()
 ```
 
 ### Defer
-defer - выполниться после достижение и окончания последней строки ф-ции в которой она написана
+###### defer - выполниться после достижение и окончания последней строки ф-ции в которой она написана
 ```go
 defer fmt.Println("world")
 fmt.Println("hello")
 ```
 
-Также можно накидывать в очередь выполнения defer (отработает по типу last-in-first-out)
+###### Также можно накидывать в очередь выполнения defer (отработает по типу last-in-first-out)
 ```go
 fmt.Println("counting")
 for i := 0; i < 10; i++ {
