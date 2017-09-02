@@ -2,16 +2,22 @@
 
 #### Содержание
 
+
 * [Variables](#variables)
 * [Arrays](#arrays)
 * [Functions](#functions)
 * [For](#for)
 * [While](#while)
-* [If, switch](#)
+* [If, switch](#if-switch)
 * [Defer](#defer)
 ---
 
 ### Variables
+
+###### ВЫВОД типа переменной
+```go
+fmt.Printf("i is of type %T\n", i) // out-> i is of type int
+```
 
 ```go
 var x int
@@ -43,7 +49,7 @@ words  := [3]string{"Hello", "mate", "world"}
 
 
 ### Functions
-##### Возвращение нескольких результатов
+###### Возвращение нескольких результатов
 ```go
 package main
 import "fmt"
@@ -59,7 +65,7 @@ func main() {
 
 ```
 
-##### Возвращение названых переменных
+###### Возвращение названых переменных
 ```go
 package main
 import "fmt"
