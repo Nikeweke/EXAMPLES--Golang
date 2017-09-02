@@ -29,6 +29,9 @@ REM путь к бинарникам проекта
 SET PATH=%GOPATH%\BIN;%PATH%;
 REM SET PATH=%GOROOT%\BIN;%PATH%;
 
+REM go get github.com/pilu/fresh - hot reloader
+REM fresh 
+
 go run main.go
 pause
 ```
@@ -46,6 +49,9 @@ SET PATH=%GOROOT%\BIN;%PATH%;
 SET GOOS=linux
 SET GOARCH=amd64
 SET CGO_ENABLED=0
+
+REM go get github.com/pilu/fresh - hot reloader
+REM fresh 
 
 go build main.go
 pause
