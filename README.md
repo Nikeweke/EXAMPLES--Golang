@@ -4,6 +4,7 @@
 * Install 
 * Quick start
 * Use external packages
+* Import and cycle error
 --- 
 
 ### Install
@@ -60,6 +61,11 @@ chcp 866>nul
 SET GOPATH=%CD%
 SET PATH=%PATH%;%GOPATH%\BIN;
 
+REM for linux build
+REM SET GOOS=linux
+REM SET GOARCH=amd64
+REM SET CGO_ENABLED=0
+
 REM используем наш только что скачанный пакет. Это watcher за проектом.
 fresh
 
@@ -67,3 +73,7 @@ go run main.go
 
 pause
 ```
+
+### Import and cycle error
+Импорты могут замыкаться. Допустим: `main -> config -> controllers -> config`. Нельзя юзать предыдущее пространство. Надо идти дальше. Вот так: `main -> config -> controllers -> config/structs`
+
