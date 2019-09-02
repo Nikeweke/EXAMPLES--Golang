@@ -34,45 +34,13 @@ go run hello.go
 * **GOPATH** - это путь к текущему проекту. обычно указываеться как `%CD%`. **Без неё пакеты извне будут ставиться фиг знает куда** 
 * **PATH** - это глобальные переменныя windows, нам надо добавить в неё путь к бинарникам проекта, чтобы обращаться к ним просто по имени.  
     
+Пример packages(скачивает пакеты) и runner(запускает программу):
+* [packages_linux.sh](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/packages_linux.sh)
+* [runner_linux.sh](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/runner_linux.sh)
+* [packages.bat](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/packages.bat)
+* [runner.bat](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/runner.bat)
 
-###### packages.bat - скачка пакетов в проект
-```batch
-@ECHO OFF
-SETLOCAL
-chcp 866>nul
 
-SET GOPATH=%CD%
-SET PATH=%PATH%;%GOPATH%\BIN;
-
-REM go get - команда которая скачивает пакеты извне
-REM после одного раза можно коментить эту строку, так как пакет уже у вас
-
-go get github.com/pilu/fresh
-
-pause
-```
-
-###### runner.bat - запуск программы
-```batch
-@ECHO OFF
-SETLOCAL
-chcp 866>nul
-
-SET GOPATH=%CD%
-SET PATH=%PATH%;%GOPATH%\BIN;
-
-REM for linux build
-REM SET GOOS=linux
-REM SET GOARCH=amd64
-REM SET CGO_ENABLED=0
-
-REM используем наш только что скачанный пакет. Это watcher за проектом.
-fresh
-
-go run main.go
-
-pause
-```
 
 ### Вопросы и Ответы
 
