@@ -1,13 +1,13 @@
 ## Golang 
 
 #### Содержание
-* Install 
+* Установка 
 * Quick start
-* Use external packages
+* Использование библиотек
 * Вопросы и Ответы
 --- 
 
-### Install
+### Установка
 Скачать можно с офиц. сайта go - https://golang.org/. Golang сразу же установится в пути в `PATH`
 
 
@@ -28,13 +28,13 @@ func main () {
 go run hello.go
 ```
 
-### Use external packages
+###  Использование библиотек
 Для того чтобы установить пакеты извне, нужно обозначить текущий рабочий проект в путях:
 * **GOROOT** - это там где установлен язык. После установки, этот путь сам добавиться в `PATH`
 * **GOPATH** - это путь к текущему проекту. обычно указываеться как `%CD%`. **Без неё пакеты извне будут ставиться фиг знает куда** 
 * **PATH** - это глобальные переменныя windows, нам надо добавить в неё путь к бинарникам проекта, чтобы обращаться к ним просто по имени.  
     
-Пример packages(скачивает пакеты) и runner(запускает программу):
+Примеры packages(скачивает пакеты) и runner(запускает программу):
 * [packages_linux.sh](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/packages_linux.sh)
 * [runner_linux.sh](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/runner_linux.sh)
 * [packages.bat](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/packages.bat)
