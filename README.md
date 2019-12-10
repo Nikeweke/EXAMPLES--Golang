@@ -5,6 +5,14 @@
 * Quick start
 * Использование библиотек
 * Вопросы и Ответы
+
+Примеры packages(скачивает пакеты) и runner(запускает программу):
+* [packages_linux.sh](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/packages_linux.sh)
+* [runner_linux.sh](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/runner_linux.sh)
+* [packages.bat](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/packages.bat)
+* [runner.bat](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/runner.bat)
+
+
 --- 
 
 ### Установка
@@ -34,14 +42,6 @@ go run hello.go
 * **GOPATH** - это путь к текущему проекту. обычно указываеться как `%CD%`. **Без неё пакеты извне будут ставиться фиг знает куда** 
 * **PATH** - это глобальные переменныя ОС, нам надо добавить в неё путь к бинарникам проекта, чтобы обращаться к ним без полного пути.  
     
-Примеры packages(скачивает пакеты) и runner(запускает программу):
-* [packages_linux.sh](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/packages_linux.sh)
-* [runner_linux.sh](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/runner_linux.sh)
-* [packages.bat](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/packages.bat)
-* [runner.bat](https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/packages_runners/runner.bat)
-
-
-
 ### Вопросы и Ответы
 
 **1)** Import cycle error?
