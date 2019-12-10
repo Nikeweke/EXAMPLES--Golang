@@ -1,0 +1,36 @@
+<html>
+<head>
+    <head>
+        <title>Simple Calc</title> 
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    </head>
+</head>
+<body>
+    
+    <label for="">Input First</label>
+    <input type="number" style="width: 250px; margin: 0 auto;" id="input1" >
+    <label for="">Input Second</label>
+    <input type="number" style="width: 250px; margin: 0 auto;" id="input2" >
+    <input type="button" style="width: 125px; margin: 0 auto;" value="Add ( + )" id="add"> 
+    <hr>
+		<input type="number" style="width: 250px; margin: 0 auto;" id="output1" disabled>
+		
+    <div id="app">
+			<h2 onclick="myFunc()">HEre is vue {{2+2}}</h2>
+		</div> 
+
+
+		<script>
+		  new Vue({
+				el: '#app'
+			})
+			function myFunc() {
+				alert('herer')
+			}
+
+		</script>
+ 
+
+</body>
+</html>
