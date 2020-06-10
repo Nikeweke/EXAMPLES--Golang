@@ -22,5 +22,16 @@ func main() {
 
    /* access the value using the pointer */
    fmt.Printf("Value of *ip variable: %d\n", *ip )
+   
+   // add by ref
+   var number int = 2 
+   addSome(&number)
+   fmt.Println(number)
+}
+
+
+func addSome(numb *int) {
+  fmt.Println(numb)
+  *numb = *numb + 2
 }
 ```
