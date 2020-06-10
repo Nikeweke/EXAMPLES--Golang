@@ -47,3 +47,35 @@ func main() {
    fmt.Printf("Rectangle area: %f\n",getArea(rectangle))
 }
 ```
+
+Another example
+```go
+type MyStringer interface {
+	String() string
+}
+
+type Temp int
+
+type Point struct { 
+	x, y int
+}
+
+func (t Temp) String() string {
+	return strconv.Itoa(int(t)) + " °C"
+}
+
+func (p Point) String() string {
+	return fmt.Sprintf("(%d,%d)", p.x, p.y)
+}
+
+
+func main() {
+	var x MyStringer
+
+	x = Temp(24) // init user-defined type
+	fmt.Println(x.String()) // 24 °C
+
+	x = Point{1, 2}
+	fmt.Println(x.String()) // (1,2)
+}
+```
