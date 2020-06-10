@@ -22,11 +22,6 @@ type Rectangle struct {
    width, height float64
 }
 
-/* define a rectangle */
-type Shit struct {
-	width, height float64
-}
-
 /* define a method for circle (implementation of Shape.area())*/
 func(circle Circle) area() float64 {
    return math.Pi * circle.radius * circle.radius
