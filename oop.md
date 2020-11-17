@@ -1,4 +1,5 @@
 ### OOP
+In golang we **CAN'T** access fields of child class(struct) in parent class(struct) methods
 
 Inheritance of methods
 
@@ -6,58 +7,56 @@ Inheritance of methods
 type Animal struct {
 }
 
-func (Animal) Say() {
-	println("I am Animal")
+func (Animal) Say1() {
+  println("I am Animal")
 }
 
 type Dog struct {
-	Animal // embedding methods of Animal to Dog struct, now we can call "Say" method
+	Animal // embedding methods of Animal to Dog struct, now we can call "Say1" method
 	name string
 }
 
-func (d *Dog) Say() {
+func (d *Dog) Say2(){
 	println("I am Dog -", d.name)
 }
 
 
 func main() {
 	var dog = Dog{name: "buddy"}
-
-	dog.Say()
+	dog.Say1()
+	dog.Say2()
 	fmt.Println(dog)
 }
 ```
 
-Another example
+How to fire parent method with child fields
 ```go
-type Animal struct {
+// Parent struct
+type BaseModel struct {}
+
+func (this BaseModel) ToJson(model string, item interface{}) string {
+	jsonData, err := json.Marshal(item )
+	if err != nil {
+		fmt.Println("models/" + model + "/ToJson()", err)
+		return err.Error()
+	}
+	return string(jsonData)
 }
 
-func (a Animal) Say() {
-	println("I am Animal")
+// Child struct
+type User struct {
+  BaseModel
+  Id            int    `json:"id"`  
+  Name          string `json:"name"`
 }
 
-type Dog struct {
-	Animal // embedding methods of Animal to Dog struct, now we can call "Say" method
-	animal Animal
-	name string
-}
-
-func (d *Dog) Say() {
-	println("I am Dog -", d.name)
-}
-
-func (d *Dog) Halter() {
-	d.animal.Say()
-	// println("I am Dog -", d.name)
+func (this User) ToJson() string { 
+  return this.BaseModel.ToJson("User", this)
 }
 
 
 func main() {
-	var dog = Dog{name: "buddy"}
-
-	dog.Say()
-	dog.Halter()
-	fmt.Println(dog)
+	var user = User{Id: 123, Name: "buddy"}
+	fmt.Println(user.ToJson())
 }
 ```
