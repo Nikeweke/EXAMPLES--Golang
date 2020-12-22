@@ -28,13 +28,13 @@ print(point.Color, point.x, point.y)
 ```
 
 
-Inheritance of methods
+Inheritance of methods (Embbeding)
 
 ```go
 type Animal struct {
 }
 
-func (Animal) Say1() {
+func (Animal) Say() {
   println("I am Animal")
 }
 
@@ -43,17 +43,26 @@ type Dog struct {
 	name string
 }
 
-func (d *Dog) Say2(){
-	println("I am Dog -", d.name)
+func (d Dog) Bark(){
+ println("I am Dog -", d.name)
+}
+
+// "*Dog" - pointer allow us change value of instance 
+func (d *Dog) ChangeName(name string){
+ d.name = name
+ println("I am Dog -", d.name)
 }
 
 
 func main() {
 	var dog = Dog{name: "buddy"}
-	dog.Say1()
-	dog.Say2()
+	dog.Say() // from animal
+	dog.Bark() // from dog
+	dog.ChangeName("Braker")
+	dog.Say()
 	fmt.Println(dog)
 }
+
 ```
 
 How to fire parent method with child fields
