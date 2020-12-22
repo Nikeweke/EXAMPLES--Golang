@@ -1,6 +1,33 @@
 ### Interfaces
 
+Golang **does not** support enheritance only aggregation or embeding
+
 No `implementation` word that define type to some struct, like in other languages
+
+
+Aggregation and Embbeding
+```go
+// example 1
+type Animal struct {}
+
+type Dog struct {
+  Animal // anonymus (no name) field (embbeding)
+  Age int // named field (aggregation) 
+}
+```
+
+```go
+// example 2
+import "image/color"
+
+type ColoredPoint struct {
+  color.Color // anonymus (no name) field (embbeding)
+  x, y int // named field (aggregation) 
+}
+
+point := ColoredPoint{}
+print(point.Color, point.x, point.y)
+```
 
 ```go
 package main
