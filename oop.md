@@ -1,5 +1,32 @@
 ### OOP
+Golang **DOES NOT** support enheritance only aggregation or embeding.
 In golang we **CAN'T** access fields of child class(struct) in parent class(struct) methods
+
+
+Aggregation and Embbeding
+```go
+// example 1
+type Animal struct {}
+
+type Dog struct {
+  Animal // anonymus (no name) field (embbeding)
+  Age int // named field (aggregation) 
+}
+```
+
+```go
+// example 2
+import "image/color"
+
+type ColoredPoint struct {
+  color.Color // anonymus (no name) field (embbeding)
+  x, y int // named field (aggregation) 
+}
+
+point := ColoredPoint{}
+print(point.Color, point.x, point.y)
+```
+
 
 Inheritance of methods
 
