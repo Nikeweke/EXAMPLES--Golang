@@ -1,5 +1,7 @@
 # Channels
 
+> https://medium.com/rungo/anatomy-of-channels-in-go-concurrency-in-go-1ec336086adb
+
 ### Basic
 ```go
 package main
@@ -29,7 +31,7 @@ func main() {
 ```
 <br />
 
-### GetUser with possible error example
+### GetUser with possible error example - one iteration
 
 ```go
 package main
@@ -73,6 +75,85 @@ func main() {
 }
 
 func GetUser(id int, out chan User) error {
+	var result = Users[id]
+	if result == (User{}) {
+    return ErrPersonNotFound
+	}
+	time.Sleep(time.Millisecond * 2000)
+	out <- result
+  return nil
+}
+```
+<br />
+
+### ### "GetUser" with possible error example - few iteration
+
+```go
+package main
+
+import (
+  "fmt"
+  "errors"
+  "time"
+  // "sync"
+)
+
+var (
+	ErrPersonNotFound = errors.New("account_not_found")
+)
+
+type User struct {
+  Name string
+  Age int
+}
+
+var Users = map[int]User{
+  21: User{"Alex Bradvik", 21},
+  40: User{"Jessica Avaro", 40},
+}
+
+func main() {
+  // create a channels 
+  var channel = make(chan User) 
+  var errCh = make(chan error)
+
+  var userId = 21
+  var iterations = 10
+
+  // make parallel a few iterations to get user 
+  for i:=0; i < iterations; i++ {
+    go func(userId int) {
+      errCh <- GetUser(userId, channel) 
+    }(userId)
+  }
+
+  var result = []User{}
+
+  // wait for result (it works, but in error some )
+  for i := 0; i < iterations; i++ {
+
+    // "select" listening for one of channel for value 
+    select {
+      // i set here check cuz sometime it can trapped here in some reason
+      case err := <-errCh:  
+        if err != nil {
+          fmt.Println("Error found:", err)
+          continue
+        }
+        result = append(result, <-channel)
+
+      case user := <-channel:  
+        fmt.Println("Success: ", user)
+        result = append(result, user)
+    }
+  }
+
+
+  fmt.Println(len(result))
+}
+
+func GetUser(id int, out chan User) error {
+  fmt.Println("HERE")
 	var result = Users[id]
 	if result == (User{}) {
     return ErrPersonNotFound
