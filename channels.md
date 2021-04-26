@@ -27,6 +27,7 @@ func main() {
 
 }
 ```
+<br />
 
 ### GetUser with possible error example
 
