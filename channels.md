@@ -31,7 +31,7 @@ func main() {
 ```
 <br />
 
-### GetUser with possible error example - one iteration
+### "GetUser" with error in return - one iteration
 
 ```go
 package main
@@ -65,6 +65,7 @@ func main() {
   // getting error that can function return into error-channel
   go func() {  errCh <- GetUser(userId, channel) }()
 
+  // listening for response from corresponding channel
   select {
     case msg1 := <-channel:  
     fmt.Println("Success: ", msg1)
@@ -86,7 +87,7 @@ func GetUser(id int, out chan User) error {
 ```
 <br />
 
-### ### "GetUser" with possible error example - few iteration
+### "GetUser" with error in return  - few iteration
 
 ```go
 package main
@@ -129,12 +130,12 @@ func main() {
 
   var result = []User{}
 
-  // wait for result (it works, but in error some )
+  // wait for result 
   for i := 0; i < iterations; i++ {
 
-    // "select" listening for one of channel for value 
+    // "select" listening for values from channel 
     select {
-      // i set here check cuz sometime it can trapped here in some reason
+      // i set here check cuz sometime it can trapped into error case for some reason
       case err := <-errCh:  
         if err != nil {
           fmt.Println("Error found:", err)
