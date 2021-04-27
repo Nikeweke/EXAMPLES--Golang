@@ -4,10 +4,10 @@
 
 * [Basic](#Basic)
 * [Buffered size channel](#Buffered-size-channel)
-* Channel length and capacity
-* Unidirectional channels
-* "GetUser" with error in return - one iteration
-* "GetUser" with error in return  - few iteration
+* [Channel length and capacity](#Channel-length-and-capacity)
+* [Unidirectional channels](#Unidirectional-channels)
+* ["GetUser" with error in return - one iteration](#GetUser-with-error-in-return-one-iteration)
+* ["GetUser" with error in return  - few iteration](#GetUser-with-error-in-return-few-iteration)
 
 --- 
 
