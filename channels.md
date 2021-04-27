@@ -1,24 +1,30 @@
-# Channels
+# Channels and goroutines
 
 > https://medium.com/rungo/anatomy-of-channels-in-go-concurrency-in-go-1ec336086adb
+
+* Basic
+* Buffered size channel
+* Channel length and capacity
+* Unidirectional channels
+* "GetUser" with error in return - one iteration
+* "GetUser" with error in return  - few iteration
+
+--- 
 
 ### Basic
 ```go
 package main
-
-import (
-  "fmt"
-)
+import "fmt"
 
 func main() {
   // create a channel 
-  channel := make(chan User) // if "make(chane int, 100)" its bufferized channel 
+  channel := make(chan string)
 
   // WRITIING into channel 
   // (without "go func" it will be error - " all goroutines are asleep - deadlock!")
   go func() {
-    channel <- User{"Alex Bradvik", 21}
-    channel <- User{"Jessica Avaro", 40}
+    channel <- "Alex Bradvik"
+    channel <- "Jessica Avaro"
   }()
 
   // READING from channel (awaiting data)
@@ -27,9 +33,135 @@ func main() {
     fmt.Println(data)
   }
 
+  // ----> OR
+  // result1, result2 := <-channel, <-channel
+  // fmt.Println(result1)
+  // fmt.Println(result2) 
 }
 ```
 <br />
+
+### Buffered size channel
+If we will write a few values into unbuffered channel it will be deadlock
+
+```go
+func greet(ch chan string) {
+  for i:=0; i < 3; i++ {
+    fmt.Println("Hello "+ <-ch)
+  }
+}
+
+func main() {
+  var channel = make(chan string)
+
+  go greet(channel)
+
+  channel <- "Jake" // "Hello Jake"
+  channel <- "Alex" // ERROR: deadlock
+
+  fmt.Println("done")
+}
+```
+
+With buffered size we can do it. When channel overflowed - goroutine will launch
+```go 
+func greet(ch chan string) {
+  for i:=0; i < 3; i++ {
+    fmt.Println("Hello "+ <-ch)
+  }
+}
+
+func main() {
+  // 1. set size of channel
+  var channel = make(chan string, 3)
+
+  // 2. start goroutine
+  go greet(channel)
+
+  // 3. push into channel values
+  channel <- "Jake"
+  channel <- "Alex"
+  channel <- "Alex2"
+
+  // 4. on purpose overflowing channel will cause to goroutine execution
+  channel <- "" 
+
+  fmt.Println("done")
+}
+```
+
+Also we can get from closed channel items cuz they are buffered
+```go
+func main() {
+	c := make(chan int, 3)
+	c <- 1
+	c <- 2
+	c <- 3
+	close(c)
+	
+	// iteration terminates after receving 3 values
+	for elem := range c {
+		fmt.Println(elem)
+	}
+}
+```
+<br />
+
+### Channel length and capacity
+```go
+func main() {
+  c := make(chan int, 3)
+	c <- 1
+	c <- 2
+
+  // capacity and length will work only with buffered size channel
+  // cuz unbuff channel need to cover with goroutine above
+
+	fmt.Printf("Length of channel c is %v and capacity of channel c is %v", len(c), cap(c))
+	fmt.Println()
+}
+```
+<br />
+
+### Unidirectional channels
+
+Using unidirectional channels increases the type-safety of a program. Hence the program is less prone to error.
+
+```go
+package main
+import "fmt"
+
+func main() {
+	roc := make(<-chan int) // receive-only channel
+	soc := make(chan<- int) // send-only channel
+
+	fmt.Printf("Data type of roc is `%T`\n", roc)
+	fmt.Printf("Data type of soc is `%T\n", soc)
+}
+```
+
+Convert bi-directional channel to unidirectional channel.
+```go
+
+package main
+import "fmt"
+
+func greet(roc <-chan string) {
+	fmt.Println("Hello " + <-roc + "!")
+}
+
+func main() {
+	fmt.Println("main() started")
+	c := make(chan string)
+
+	go greet(c)
+
+	c <- "John"
+	fmt.Println("main() stopped")
+} 
+```
+<br />
+
 
 ### "GetUser" with error in return - one iteration
 
@@ -164,3 +296,5 @@ func GetUser(id int, out chan User) error {
   return nil
 }
 ```
+
+
