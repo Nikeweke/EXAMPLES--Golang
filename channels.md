@@ -2,7 +2,7 @@
 
 > https://medium.com/rungo/anatomy-of-channels-in-go-concurrency-in-go-1ec336086adb
 
-* [Basic](#anchors-in-markdown)
+* [Basic](#Basic)
 * Buffered size channel
 * Channel length and capacity
 * Unidirectional channels
