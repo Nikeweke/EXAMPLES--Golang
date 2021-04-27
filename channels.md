@@ -3,7 +3,7 @@
 > https://medium.com/rungo/anatomy-of-channels-in-go-concurrency-in-go-1ec336086adb
 
 * [Basic](#Basic)
-* Buffered size channel
+* [Buffered size channel](#Buffered-size-channel)
 * Channel length and capacity
 * Unidirectional channels
 * "GetUser" with error in return - one iteration
