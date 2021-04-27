@@ -1,7 +1,7 @@
 # Channels and goroutines
 
-> https://medium.com/rungo/anatomy-of-channels-in-go-concurrency-in-go-1ec336086adb
-> https://madeddu.xyz/posts/go-async-await/
+> * https://medium.com/rungo/anatomy-of-channels-in-go-concurrency-in-go-1ec336086adb
+> * https://madeddu.xyz/posts/go-async-await/
 
 * [Basic](#Basic)
 * [Buffered size channel](#Buffered-size-channel)
