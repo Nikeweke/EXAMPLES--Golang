@@ -4,11 +4,11 @@
 > * https://madeddu.xyz/posts/go-async-await/
 
 * [Basic](#Basic)
-* [Unbuffered channels](#Unbuffered-channels)
-* [Buffered channels](#Buffered-size-channel)
+* [Unbuffered channels](#unbuffered-channels)
+* [Buffered channels](#buffered-channels)
 * [Channel length and capacity](#Channel-length-and-capacity)
 * [Unidirectional channels](#Unidirectional-channels)
-* [Select](#Select)
+* [Select](#select)
 * ["GetUser" with error in return - one iteration](#getuser-with-error-in-return---one-iteration)
 * ["GetUser" with error in return  - few iteration](#getuser-with-error-in-return----few-iteration)
 
@@ -44,7 +44,7 @@ func main() {
 ```
 <br />
 
-### Unbuffered channel
+### Unbuffered channels
 
 ###### Wrong ❌
 ```go
