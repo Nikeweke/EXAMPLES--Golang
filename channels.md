@@ -4,7 +4,8 @@
 > * https://madeddu.xyz/posts/go-async-await/
 
 * [Basic](#Basic)
-* [Buffered size channel](#Buffered-size-channel)
+* [Unbuffered channels](#Unbuffered-channels)
+* [Buffered channels](#Buffered-size-channel)
 * [Channel length and capacity](#Channel-length-and-capacity)
 * [Unidirectional channels](#Unidirectional-channels)
 * [Select](#Select)
@@ -43,7 +44,81 @@ func main() {
 ```
 <br />
 
-### Buffered size channel
+### Unbuffered channel
+
+###### Wrong ❌
+```go
+func main() {
+	var ch = make(chan string) 
+
+	// will cause a DEADLOCK!
+  // cuz unbuffered channels are synchronus and block main goroutine
+	ch <- "Hello"  
+	
+	// blocking operation 
+	response := <-ch
+	fmt.Println(response)
+
+	fmt.Println("done")
+}
+```
+
+
+###### Right ✔️
+```go
+func main() {
+  ch := make(chan string) 
+
+  // 1. starting goroutine that expect inside value from channel
+  go func(ch chan string) { 
+    // 3. receive value and continue execution 
+		request := <-ch // wait for value to read (without it will be deadlock)
+		fmt.Println(request)
+		
+    // 4. push new value 
+		ch <- "How r u?"
+  }(ch)
+
+  // 2. push to channel value
+	ch <- "Hello"  
+	
+	// 5. reading channel inside of main goroutine (blocking operation) 
+	response := <-ch
+	fmt.Println(response)
+
+	fmt.Println("done")
+}
+```
+
+
+
+
+<br />
+
+### Buffered channels
+
+```go
+func main() {
+	var ch = make(chan string, 2) 
+
+	// non-blocking operation 
+	ch <- "Hello"  
+	ch <- "there" 
+
+	// makes deadlock - channel overflowed
+	// ch <- "there"
+	
+	// non-blocking operation cuz of buffered channel 
+	r1, r2 := <-ch, <-ch
+	fmt.Println(r1, r2)
+
+	// makes deadlock - channel is empty
+	// <-ch 
+
+	fmt.Println("done")
+}
+```
+
 If we will write a few values into unbuffered channel it will be deadlock
 
 ```go
@@ -109,6 +184,10 @@ func main() {
 ```
 <br />
 
+
+
+
+
 ### Channel length and capacity
 ```go
 func main() {
@@ -166,7 +245,7 @@ func main() {
 
 
 ### Select
-Works like `switch` but for channels
+Works like `switch` but for channels. **default** case makes `select` non-blocking
 
 ```go
 package main
@@ -210,7 +289,38 @@ func main() {
 	fmt.Println("main() stopped", time.Since(start))
 }
 ```
+<br />
 
+### WaitGroup
+WaitGroup is a `struct` with a `counter` value which tracks how many goroutines were spawned and how many have completed their job. This counter when reaches zero, means all goroutines have done their job.
+
+```go
+package main
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+func service(wg *sync.WaitGroup, instance int) {
+	time.Sleep(2 * time.Second)
+	fmt.Println("Service called on instance", instance)
+	wg.Done() // decrement counter
+}
+
+func main() {
+	fmt.Println("main() started")
+	var wg sync.WaitGroup // create waitgroup (empty struct)
+
+	for i := 1; i <= 3; i++ {
+		wg.Add(1) // increment counter
+		go service(&wg, i)
+	}
+
+	wg.Wait() // blocks here
+	fmt.Println("main() stopped")
+}
+```
 
 ### "GetUser" with error in return - one iteration
 
