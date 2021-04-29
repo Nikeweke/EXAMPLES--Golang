@@ -7,6 +7,7 @@
 * [Buffered size channel](#Buffered-size-channel)
 * [Channel length and capacity](#Channel-length-and-capacity)
 * [Unidirectional channels](#Unidirectional-channels)
+* [Select](#Select)
 * ["GetUser" with error in return - one iteration](#getuser-with-error-in-return---one-iteration)
 * ["GetUser" with error in return  - few iteration](#getuser-with-error-in-return----few-iteration)
 
@@ -162,6 +163,53 @@ func main() {
 } 
 ```
 <br />
+
+
+### Select
+Works like `switch` but for channels
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+var start time.Time
+func init() {
+	start = time.Now()
+}
+
+func service1(c chan string) {
+	time.Sleep(3 * time.Second)
+	c <- "Hello from service 1"
+}
+
+func service2(c chan string) {
+	time.Sleep(5 * time.Second)
+	c <- "Hello from service 2"
+}
+
+func main() {
+	fmt.Println("main() started", time.Since(start))
+
+	chan1 := make(chan string)
+	chan2 := make(chan string)
+
+	go service1(chan1)
+	go service2(chan2)
+
+	select {
+	case res := <-chan1:
+		fmt.Println("Response from service 1", res, time.Since(start))
+	case res := <-chan2:
+		fmt.Println("Response from service 2", res, time.Since(start))
+	}
+	
+	fmt.Println("main() stopped", time.Since(start))
+}
+```
 
 
 ### "GetUser" with error in return - one iteration
