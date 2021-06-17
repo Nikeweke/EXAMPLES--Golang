@@ -12,3 +12,4 @@
 2. Make up all or n numbers of migrations 
 3. Make down all or n numbers of migrations
 4. Goto version of migrations
+5. and another things....
