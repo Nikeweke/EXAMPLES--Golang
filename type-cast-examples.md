@@ -8,9 +8,7 @@ func SomeFn(data interface{}) (interface{}, error) {
   // ... тут происходит допустим запрос и мы получаем bytes []byte
   
   // мы хотим загнать байты в структуру
-  var bytes, err := json.Marshal(bytes, &data)
- 
- 
+  var err := json.Marshal(bytes, &data)
   return data, nil
 }
 
