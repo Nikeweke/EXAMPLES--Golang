@@ -12,15 +12,16 @@ import (
 )
 
 func main() {
-	// Await 1 promise 
+	// Await one 
 	var result1 = <-Promise(func() (interface{}, error) { someComputing(2); return "Promise1: With 2 sec", nil })
 	fmt.Println(result1)
 
+
 	// Promise.all
-	var promise1 = Promise(func() (interface{}, error) { return getData() })
-	var promise2 = Promise(func() (interface{}, error) { return getData() })
+	var promise1 = Promise(func() (interface{}, error) { someComputing(2); return "PromiseAll: With 2 sec", nil })
+	var promise2 = Promise(func() (interface{}, error) { someComputing(4); return "PromiseAll: With 4 sec", nil  })
 	result1, result2 := <-promise1, <-promise2
-	fmt.Println(string(result1.Result.([]byte)), string(result2.Result.([]byte)))
+	fmt.Println(result1.Result, result2.Result)
 
 
 	// Promise.race
@@ -32,6 +33,23 @@ func main() {
 		case result3 = <-promise4:
 	}
 	fmt.Println(result3)
+
+	
+	// Promises Array
+	var results = []PromiseResponse{}
+	var promises = []<-chan PromiseResponse{}
+	promises = append(
+		promises, 
+		Promise(func() (interface{}, error) { someComputing(2); return "Promise1: With 2 sec", nil }),
+	)
+	promises = append(
+		promises, 
+		Promise(func() (interface{}, error) { someComputing(4); return "Promise1: With 4 sec", nil }),
+	)
+	for _, promise := range promises {
+		results = append(results, <-promise)
+	}
+	fmt.Println(results)
 }
 
 
