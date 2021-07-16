@@ -15,7 +15,7 @@ func SomeFn(data interface{}) (interface{}, error) {
 func main() {
   type User struct {}
     
-  // тут мы получим пустую переменную типа interface{}
+  // тут мы получим пустую переменную типа interface{}, а не User как ожидалось
   var user, err = SomeFn(User{})
 }
 ```
