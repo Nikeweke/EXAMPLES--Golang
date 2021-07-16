@@ -1,4 +1,4 @@
-# Promises
+# Promises, async/await
 
 ```go
 // based on https://madeddu.xyz/posts/go-async-await/
