@@ -34,3 +34,18 @@ func main() {
   var err = SomeFn(&user)
 }
 ```
+
+### 2. Switch type 
+
+Если мы хотим для определенных данных сделать какой-то вызов или дополнить можно юзать `switch type` помогает сразу
+закастовать переменную и работать с ней
+
+```go
+	switch v := items.(type) {
+   	case []models.Product:
+			v = services.AddProviderSearchResults(filters.Search, v)
+			return c.JSON(http.StatusOK, v)     
+		default:
+      return c.JSON(http.StatusOK, items)
+	}
+```
