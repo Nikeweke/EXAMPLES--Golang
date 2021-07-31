@@ -38,14 +38,23 @@ func main() {
 	// Promises Array
 	var results = []PromiseResponse{}
 	var promises = []<-chan PromiseResponse{}
-	promises = append(
-		promises, 
-		Promise(func() (interface{}, error) { someComputing(2); return "Promise1: With 2 sec", nil }),
-	)
-	promises = append(
-		promises, 
-		Promise(func() (interface{}, error) { someComputing(4); return "Promise1: With 4 sec", nil }),
-	)
+	var data = []string{"123", "234"}
+
+	for _, item := range data {
+		// fnWrapper - here is for passing "item" param into function (you can go without this, just call as anonym function),
+		// without this wrapper function will always output only last item from array "data"
+		var fnWrapper = func(item string) func() (interface{}, error) {
+			return func() (interface{}, error) { 
+				fmt.Println(item)
+				someComputing(2); 
+				return "Promise1: With 2 sec", nil 
+			}
+		}(item)
+		var promise = Promise(fnWrapper(item))
+		promises = append(promises, promise)
+	}
+	
+
 	for _, promise := range promises {
 		results = append(results, <-promise)
 	}
