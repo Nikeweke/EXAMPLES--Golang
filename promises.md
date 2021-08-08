@@ -36,7 +36,6 @@ func main() {
 
 	
 	// Promises Array
-	var results = []PromiseResponse{}
 	var promises = []<-chan PromiseResponse{}
 	var data = []string{"123", "234"}
 
