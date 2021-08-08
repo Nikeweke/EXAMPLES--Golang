@@ -49,15 +49,12 @@ func main() {
 				someComputing(2); 
 				return "Promise1: With 2 sec", nil 
 			}
-		}(item)
+		}
 		var promise = Promise(fnWrapper(item))
 		promises = append(promises, promise)
 	}
 	
-
-	for _, promise := range promises {
-		results = append(results, <-promise)
-	}
+        results := PromiseAll(promises)
 	fmt.Println(results)
 }
 
@@ -81,6 +78,15 @@ func Promise(f func() (interface{}, error)) <-chan PromiseResponse {
 	
 	return c 
 }
+
+func PromiseAll(promises []<-chan PromiseResponse) []PromiseResponse {
+	var results = []PromiseResponse{}
+	for _, promise := range promises {
+		results = append(results, <-promise)
+	}
+	return results
+}
+
 
 
 // ========================================> EXAMPLE FNs
