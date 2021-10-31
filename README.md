@@ -44,7 +44,7 @@ SETLOCAL
 chcp 866>nul
 CLS
 
-SET BUILD_PATH=.\supertax-api
+SET BUILD_PATH=.\myapp
 
 @REM SET GOPATH=%CD%
 @REM SET PATH=%PATH%;%GOPATH%\BIN;
