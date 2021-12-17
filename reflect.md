@@ -1,7 +1,7 @@
 # Reflect
 
 #### `reflect.TypeOf(x)` 
-возвращает тип переменной - значение типа `*reflect.rtype`
+возвращает тип переменной строку (`*reflect.rtype`)
 <br /><br />
 
 #### `reflect.ValueOf(x)` 
