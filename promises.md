@@ -27,6 +27,17 @@ func Promise(f PromiseFn) PromiseResponseCh {
 	
 	return c 
 }
+
+// just loop over channels("[]PromiseResponseCh") and wait them to end, 
+// and get responses("[]PromiseResponse") from all goroutines
+func PromiseAll(promises []PromiseResponseCh) []PromiseResponse {
+	var results = []PromiseResponse{}
+	for _, promise := range promises {
+		results = append(results, <-promise)
+	}
+	return results
+}
+
 ```
 <br />
 
@@ -92,6 +103,7 @@ for _, item := range data {
 results := PromiseAll(promises)
 fmt.Println(results)
 ```
+<br />
 
 ###### Promise.race
 ```go
@@ -106,7 +118,6 @@ select {
 fmt.Println(result3)
 ```
 <br />
-
 
 
 --- 
