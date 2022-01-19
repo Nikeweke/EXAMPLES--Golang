@@ -1,6 +1,5 @@
 # Promises
 
-###### Implementation itself
 ```go
 // based on https://madeddu.xyz/posts/go-async-await/
 type PromiseResponse struct {
