@@ -85,7 +85,8 @@ var promises := []PromiseResponseCh{
 			return user, err
 	}),
 }
-var results = PromiseAll(promises)
+var results = PromiseAll(promises) // returns []PromiseResponse{ Result, Error }
+fmt.Println(results[0].Result)
 ```
 <br />
 
