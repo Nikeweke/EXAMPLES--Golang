@@ -1,5 +1,34 @@
 # Promises, async/await
 
+###### Implementation itself
+```go
+type PromiseResponse struct {
+	Result interface{}
+	Error error
+}
+
+type PromiseFn func() (interface{}, error)
+
+type PromiseResponseCh <-chan PromiseResponse 
+
+
+// its function wrapper that set passed-in function into goroutine using channel for get response
+func Promise(f PromiseFn) PromiseResponseCh { 
+	var result interface{} 
+	var err error 
+	
+	c := make(chan PromiseResponse)
+	go func() { 
+		defer close(c) 
+		result, err = f() 
+		c <- PromiseResponse{ Result: result, Error: err }
+	}() 
+	
+	return c 
+}
+```
+<br />
+
 ###### Await one 
 ```go
   var result1 = <-Promise(func() (interface{}, error) { someComputing(2); return "Promise1: With 2 sec", nil })
