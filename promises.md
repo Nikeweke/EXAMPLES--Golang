@@ -47,7 +47,7 @@ func PromiseAll(promises []PromiseResponseCh) []PromiseResponse {
 ```
 <br />
 
-###### Promise all 
+###### Await a few
 ```go
 // Await a few
 var promise1 = Promise(func() (interface{}, error) { 
@@ -68,11 +68,21 @@ fmt.Println(result1.Result, result2.Result)
 ```go
 var promises := []PromiseResponseCh{
 	Promise(func() (interface{}, error) {
-		...
+		user, err := models.User{} 
+			err := DB.
+				Where("id = 1").
+				First(&user).
+				Error
+			return user, err
 	}),
 	
 	Promise(func() (interface{}, error) {
-		...
+		user, err := models.User{} 
+			err := DB.
+				Where("id = 2").
+				First(&user).
+				Error
+			return user, err
 	}),
 }
 var results = PromiseAll(promises)
