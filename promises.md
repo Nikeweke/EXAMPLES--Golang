@@ -1,5 +1,11 @@
 # Promises, async/await
 
+###### Await one 
+```go
+  var result1 = <-Promise(func() (interface{}, error) { someComputing(2); return "Promise1: With 2 sec", nil })
+  fmt.Println(result1)
+```
+
 ```go
 // based on https://madeddu.xyz/posts/go-async-await/
 package main
