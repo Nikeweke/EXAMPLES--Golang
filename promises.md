@@ -22,6 +22,18 @@ func main() {
 	var promise2 = Promise(func() (interface{}, error) { someComputing(4); return "PromiseAll: With 4 sec", nil  })
 	result1, result2 := <-promise1, <-promise2
 	fmt.Println(result1.Result, result2.Result)
+	
+	// Promise.all with array (new one)
+	var promises := []PromiseResponseCh{
+		Promise(func() (interface{}, error) {
+			...
+		}),
+		
+		Promise(func() (interface{}, error) {
+			...
+		}),
+	}
+	var results = PromiseAll(promises)
 
 
 	// Promise.race
@@ -36,7 +48,7 @@ func main() {
 
 	
 	// Promises Array
-	var promises = []<-chan PromiseResponse{}
+	var promises = []PromiseResponseCh{}
 	var data = []string{"123", "234"}
 
 	for _, item := range data {
@@ -64,7 +76,13 @@ type PromiseResponse struct {
 	Error error
 }
 
-func Promise(f func() (interface{}, error)) <-chan PromiseResponse { 
+type PromiseFn func() (interface{}, error)
+
+type PromiseResponseCh <-chan PromiseResponse 
+
+
+// its function wrapper that set passed-in function into goroutine using channel for get response
+func Promise(f PromiseFn) PromiseResponseCh { 
 	var result interface{} 
 	var err error 
 	
@@ -78,13 +96,16 @@ func Promise(f func() (interface{}, error)) <-chan PromiseResponse {
 	return c 
 }
 
-func PromiseAll(promises []<-chan PromiseResponse) []PromiseResponse {
+// just loop over channels("[]PromiseResponseCh") and wait them to end, 
+// and get responses("[]PromiseResponse") from all goroutines
+func PromiseAll(promises []PromiseResponseCh) []PromiseResponse {
 	var results = []PromiseResponse{}
 	for _, promise := range promises {
 		results = append(results, <-promise)
 	}
 	return results
 }
+
 
 
 
