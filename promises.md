@@ -64,7 +64,7 @@ fmt.Println(result1.Result, result2.Result)
 <br />
 
 
-###### Promise.all with array (1)
+###### Promise.all with array 
 ```go
 var promises := []PromiseResponseCh{
 	Promise(func() (interface{}, error) {
@@ -91,7 +91,7 @@ fmt.Println(results[0].Result)
 <br />
 
 
-###### Promise.all with array (2)
+###### Promise.all with array witn passing in arguments + loop
 ```go
 var promises = []PromiseResponseCh{}
 var data = []string{"123", "234"}
