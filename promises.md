@@ -1,19 +1,15 @@
 # Promises
 
 ```go
-// based on https://madeddu.xyz/posts/go-async-await/
+type PromiseFn func() (interface{}, error)
+type PromisePending <-chan PromiseResponse 
 type PromiseResponse struct {
-	Result interface{}
+	Data interface{}
 	Error error
 }
 
-type PromiseFn func() (interface{}, error)
-
-type PromiseResponseCh <-chan PromiseResponse 
-
-
 // its function wrapper that set passed-in function into goroutine using channel for get response
-func Promise(f PromiseFn) PromiseResponseCh { 
+func NewPromise(f PromiseFn) PromisePending { 
 	var result interface{} 
 	var err error 
 	
@@ -21,15 +17,15 @@ func Promise(f PromiseFn) PromiseResponseCh {
 	go func() { 
 		defer close(c) 
 		result, err = f() 
-		c <- PromiseResponse{ Result: result, Error: err }
+		c <- PromiseResponse{ Data: result, Error: err }
 	}() 
 	
 	return c 
 }
 
-// just loop over channels("[]PromiseResponseCh") and wait them to end, 
+// just loop over channels("[]PromisePending") and wait them to end, 
 // and get responses("[]PromiseResponse") from all goroutines
-func PromiseAll(promises []PromiseResponseCh) []PromiseResponse {
+func PromiseAll(promises []PromisePending) []PromiseResponse {
 	var results = []PromiseResponse{}
 	for _, promise := range promises {
 		results = append(results, <-promise)
@@ -42,7 +38,7 @@ func PromiseAll(promises []PromiseResponseCh) []PromiseResponse {
 
 ###### Await one 
 ```go
-  var result1 = <-Promise(func() (interface{}, error) { someComputing(2); return "Promise1: With 2 sec", nil })
+  var result1 = <-NewPromise(func() (interface{}, error) { someComputing(2); return "Promise1: With 2 sec", nil })
   fmt.Println(result1)
 ```
 <br />
@@ -50,24 +46,24 @@ func PromiseAll(promises []PromiseResponseCh) []PromiseResponse {
 ###### Await a few
 ```go
 // Await a few
-var promise1 = Promise(func() (interface{}, error) { 
+var promise1 = NewPromise(func() (interface{}, error) { 
 	someComputing(2); 
 	return "PromiseAll: With 2 sec", nil 
 })
-var promise2 = Promise(func() (interface{}, error) { 
+var promise2 = NewPromise(func() (interface{}, error) { 
 	someComputing(4); 
 	return "PromiseAll: With 4 sec", nil  
 })
 result1, result2 := <-promise1, <-promise2
-fmt.Println(result1.Result, result2.Result)
+fmt.Println(result1.Data, result2.Data)
 ```
 <br />
 
 
 ###### Promise.all with array 
 ```go
-var promises := []PromiseResponseCh{
-	Promise(func() (interface{}, error) {
+var promises := []PromisePending{
+	NewPromise(func() (interface{}, error) {
 		user, err := models.User{} 
 			err := DB.
 				Where("id = 1").
@@ -76,7 +72,7 @@ var promises := []PromiseResponseCh{
 			return user, err
 	}),
 	
-	Promise(func() (interface{}, error) {
+	NewPromise(func() (interface{}, error) {
 		user, err := models.User{} 
 			err := DB.
 				Where("id = 2").
@@ -85,15 +81,15 @@ var promises := []PromiseResponseCh{
 			return user, err
 	}),
 }
-var results = PromiseAll(promises) // returns []PromiseResponse{ Result, Error }
-fmt.Println(results[0].Result)
+var results = PromiseAll(promises) // returns []PromiseResponse{ Data, Error }
+fmt.Println(results[0].Data)
 ```
 <br />
 
 
 ###### Promise.all with array witn passing in arguments + loop
 ```go
-var promises = []PromiseResponseCh{}
+var promises = []PromisePending{}
 var data = []string{"123", "234"}
 
 for _, item := range data {
