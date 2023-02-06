@@ -43,8 +43,7 @@ func All(promises []Pending) []Response {
 ###### Await one 
 ```go
   var result1 = <-promise.New(func() (interface{}, error) { 
-		someComputing(2); 
-		return "Promise1: With 2 sec", nil 
+		return someComputing(2); 
 	})
   fmt.Println(result1)
 ```
@@ -54,12 +53,10 @@ func All(promises []Pending) []Response {
 ```go
 // Await a few
 var promise1 = promise.New(func() (interface{}, error) { 
-	someComputing(2); 
-	return "PromiseAll: With 2 sec", nil 
+	return someComputing(2); 
 })
 var promise2 = promise.New(func() (interface{}, error) { 
-	someComputing(4); 
-	return "PromiseAll: With 4 sec", nil  
+	return someComputing(4); 
 })
 result1, result2 := <-promise1, <-promise2
 fmt.Println(result1.Data, result2.Data)
