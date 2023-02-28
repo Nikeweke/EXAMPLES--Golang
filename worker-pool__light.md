@@ -14,14 +14,6 @@ type Response struct {
 	Error error
 }
 
-// its function wrapper that set passed-in function into goroutine using channel for get response
-func New(results chan<- Response, f Fn) { 
-	go func() { 
-		result, err := f() 
-		results <- Response{ Data: result, Error: err }
-	}() 
-}
-
 func main() {
 	var resultsChan = make(chan Response)
 	var results = []Response{}
@@ -36,9 +28,6 @@ func main() {
 			resultsChan <- Response{ Data: result, Error: err }
 		}() 
 
-		// New(resultsChan, func() (interface{}, error) { 
-		// 	return someComputing(i); 
-		// })
 	}
 
 	for j := 1; j <= jobsLen; j++ {
