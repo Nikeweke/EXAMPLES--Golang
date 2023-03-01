@@ -1,6 +1,9 @@
 ## Worker pool
 
-> Article: https://medium.com/code-chasm/go-concurrency-pattern-worker-pool-a437117025b1
+* [Article](https://medium.com/code-chasm/go-concurrency-pattern-worker-pool-a437117025b1)
+* [More complex solution from article above](https://github.com/syafdia/go-exercise/blob/master/src/concurrency/workerpool/worker_pool.go)
+
+---
 
 ```go
 package main
