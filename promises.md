@@ -1,4 +1,6 @@
-# Promises
+# Promises 
+
+> BEtter to use worker-pool https://github.com/Nikeweke/EXAMPLES--Golang/blob/master/worker-pool__light.md
 
 > place this file into separate file, for example: /services/promise/index.go to keep package name
 
