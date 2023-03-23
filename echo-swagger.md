@@ -100,3 +100,6 @@ go build -o %BUILD_PATH%.exe
 rem start in dev mode (default)
 %BUILD_PATH%.exe
 ```
+
+
+###### 4. Visit `.../swagger/index.html`
