@@ -36,7 +36,10 @@ func main () {
 go run hello.go
 ```
 
-### Go mod
+<br />
+
+
+### run.bat - скрипт для запуска 
 
 ```batch
 @ECHO OFF
@@ -46,13 +49,10 @@ CLS
 
 SET BUILD_PATH=.\myapp
 
-@REM SET GOPATH=%CD%
-@REM SET PATH=%PATH%;%GOPATH%\BIN;
-SET GO111MODULE=auto
-SET GOMODCACHE=%CD%\packages
+REM you can specify for downloading packages to project folder
+REM SET GOMODCACHE=%CD%\packages
 
-
-REM download all packages if project require
+REM download all packages that project requires
 go mod tidy
 
 ECHO Building service...
@@ -64,12 +64,21 @@ rem start in dev mode (default)
 %BUILD_PATH%.exe
 ```
 
-###  Использование библиотек
-Для того чтобы установить пакеты извне, нужно обозначить текущий рабочий проект в путях:
-* **GOROOT** - это там где установлен язык. После установки, этот путь сам добавиться в `PATH`
-* **GOPATH** - это путь к текущему проекту. обычно указываеться как `%CD%`. **Без неё пакеты извне будут ставиться фиг знает куда** 
-* **PATH** - это глобальные переменныя ОС, нам надо добавить в неё путь к бинарникам проекта, чтобы обращаться к ним без полного пути.  
-    
+<br />
+
+### GOPATH
+Эта системная переменная которая указывает куда буду закачиваться пакеты. В Golang пакеты устанавливаються не в проект, а в отдельную папку. Если нужно чтобы в проект ставились надо использовать `SET GOMODCACHE=%CD%\packages`.
+
+### Clear cache
+
+###### очистит все пакеты по пути GOPATH
+
+```
+go clear -modcache
+```
+
+---
+
 ### Вопросы и Ответы
 
 **1)** Import cycle error?
