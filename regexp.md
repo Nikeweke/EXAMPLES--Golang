@@ -8,13 +8,14 @@ package main
 import (
 	"fmt"
 	"regexp"
+	"strings"
 )
 
 func main() {
 	var input = "A man, a plan, a canal, Panama!" // its palendrom
 
 	// find - "!", commas ",", spaces "\s" 
-	re := regexp.MustCompile("[!,\\s]+")
+	re := regexp.MustCompile("[!,\\s]")
 	
 	
 	replaced := re.ReplaceAllString(input, "")
@@ -28,7 +29,7 @@ func checkPhalendrom(value string) bool {
 	var result = false
 
 	for i := 0; i < valLen; i++ {
-		if value[i] == value[(valLen-1)-i] {
+		if strings.ToLower(string(value[i])) == strings.ToLower(string(value[(valLen-1)-i])) {
 			result = true
 		} else {
 			result = false
@@ -37,4 +38,5 @@ func checkPhalendrom(value string) bool {
 
 	return result
 }
+
 ```
